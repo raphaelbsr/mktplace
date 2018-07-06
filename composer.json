@@ -1,0 +1,21 @@
+{
+    "name": "raphaelbsr/yii2-i9swmktplace",
+    "description": "mktplace",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","marketplace"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Rahael Barbosa",
+            "email": "raphaelbsr@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "raphaelbsr\\mktplace\\": ""
+        }
+    }
+}
