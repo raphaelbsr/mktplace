@@ -1,6 +1,6 @@
 <?php
 
-namespace raphaelbsr\mktplace\src;
+namespace raphaelbsr\mktplace;
 
 /**
  * This is just an example.
