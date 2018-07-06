@@ -21,8 +21,8 @@ class m180705_233343_plan extends Migration {
             'product_id' => $this->integer()->notNull(),
                 ], 'ENGINE=InnoDB');
         
-        $this->createIndex('idx-plan-product_id', 'plan', 'product_id');
-        $this->addForeignKey('fk-plan-product', 'plan', 'product_id', 'product', 'id');
+        $this->createIndex('idx-plan-product_id', 'mkt_plan', 'product_id');
+        $this->addForeignKey('fk-plan-product', 'mkt_plan', 'product_id', 'mkt_product', 'id');
     }
 
     /**

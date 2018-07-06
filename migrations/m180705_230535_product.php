@@ -17,8 +17,12 @@ class m180705_230535_product extends Migration
             'create_time' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'update_time' => 'TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
             'name' => $this->string(45)->notNull(),
+            'payment_group_id' => $this->integer(),
             'isactive' => $this->boolean()->defaultValue(true),
                 ], 'ENGINE=InnoDB');
+                
+        $this->createIndex('idx-product-payment_group_id', 'mkt_product', 'payment_group_id');                
+        
     }
 
     /**

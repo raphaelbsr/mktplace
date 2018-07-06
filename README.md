@@ -29,3 +29,7 @@ Once the extension is installed, simply use it in your code by  :
 
 ```php
 <?= \raphaelbsr\mktplace\AutoloadExample::widget(); ?>```
+
+```
+yii migrate/up --migrationPath=@vendor/raphaelbsr/yii2-mktplace/migrations
+```

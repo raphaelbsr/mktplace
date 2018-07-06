@@ -24,11 +24,11 @@ class m180705_212808_credit_cards extends Migration {
             'consumer_cpf' => $this->string(11)->notNull(),
                 ], 'ENGINE=InnoDB');
         
-        $this->createIndex('idx-credit_card-consumer_id', 'credit_card', 'consumer_id');
-        $this->createIndex('idx-credit_card-consumer_cpf', 'credit_card', 'consumer_cpf');
+        $this->createIndex('idx-credit_card-consumer_id', 'mkt_credit_card', 'consumer_id');
+        $this->createIndex('idx-credit_card-consumer_cpf', 'mkt_credit_card', 'consumer_cpf');
         
-        $this->addForeignKey('fk-credid_card_consumer', 'credit_card', 'consumer_id', 'consumer', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-credid_card_consumer1', 'credit_card', 'consumer_cpf', 'consumer', 'cpf', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk-credid_card_consumer', 'mkt_credit_card', 'consumer_id', 'mkt_consumer', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk-credid_card_consumer1', 'mkt_credit_card', 'consumer_cpf', 'mkt_consumer', 'cpf', 'CASCADE', 'CASCADE');
         
     }
 

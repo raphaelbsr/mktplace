@@ -20,9 +20,7 @@ class m180705_235922_payment_group extends Migration {
             'isactive' => $this->boolean()->defaultValue(true),
                 ], 'ENGINE=InnoDB');
         
-        $this->addColumn('product', 'payment_group_id', $this->integer());
-        $this->createIndex('idx-product-payment_group_id', 'product', 'payment_group_id');
-        $this->addForeignKey('fk-product-payment_group', 'product', 'payment_group_id', 'payment_group', 'id');
+        $this->addForeignKey('fk-product-payment_group', 'mkt_product', 'payment_group_id', 'mkt_payment_group', 'id');
         
     }
 

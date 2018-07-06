@@ -24,13 +24,13 @@ class m180706_014059_billing extends Migration {
             'due_date' => $this->date(),
                 ], 'ENGINE=InnoDB');
 
-        $this->createIndex('idx-billing-consumer_id', 'billing', 'consumer_id');
-        $this->createIndex('idx-billing-consumer_cpf', 'billing', 'consumer_cpf');
-        $this->createIndex('idx-billing-contract_id', 'billing', 'contract_id');
+        $this->createIndex('idx-billing-consumer_id', 'mkt_billing', 'consumer_id');
+        $this->createIndex('idx-billing-consumer_cpf', 'mkt_billing', 'consumer_cpf');
+        $this->createIndex('idx-billing-contract_id', 'mkt_billing', 'contract_id');
 
-        $this->addForeignKey('fk-billing-consumer', 'billing', 'consumer_id', 'consumer', 'id');
-        $this->addForeignKey('fk-billing-consumer1', 'billing', 'consumer_cpf', 'consumer', 'cpf');
-        $this->addForeignKey('fk-billing-contract', 'billing', 'contract_id', 'contract', 'id');
+        $this->addForeignKey('fk-billing-consumer', 'mkt_billing', 'consumer_id', 'mkt_consumer', 'id');
+        $this->addForeignKey('fk-billing-consumer1', 'mkt_billing', 'consumer_cpf', 'mkt_consumer', 'cpf');
+        $this->addForeignKey('fk-billing-contract', 'mkt_billing', 'contract_id', 'mkt_contract', 'id');
     }
 
     /**

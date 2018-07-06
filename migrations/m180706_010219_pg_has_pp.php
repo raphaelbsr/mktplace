@@ -20,10 +20,10 @@ class m180706_010219_pg_has_pp extends Migration {
             'payment_group_id' => $this->integer(),
                 ], 'ENGINE=InnoDB');
         
-        $this->createIndex('idx-pg_has_pp-payment_group_id', 'pg_has_pp', 'payment_group_id');
-        $this->addForeignKey('fk-pg_has_pp_plan-payment_group', 'pg_has_pp', 'payment_group_id', 'payment_group', 'id');
-        $this->createIndex('idx-pg_has_pp-payment_plan_id', 'pg_has_pp', 'payment_plan_id');
-        $this->addForeignKey('fk-pg_has_pp_plan-payment_plan', 'pg_has_pp', 'payment_plan_id', 'payment_plan', 'id');
+        $this->createIndex('idx-pg_has_pp-payment_group_id', 'mkt_pg_has_pp', 'payment_group_id');
+        $this->addForeignKey('fk-pg_has_pp_plan-payment_group', 'mkt_pg_has_pp', 'payment_group_id', 'mkt_payment_group', 'id');
+        $this->createIndex('idx-pg_has_pp-payment_plan_id', 'mkt_pg_has_pp', 'payment_plan_id');
+        $this->addForeignKey('fk-pg_has_pp_plan-payment_plan', 'mkt_pg_has_pp', 'payment_plan_id', 'mkt_payment_plan', 'id');
         
     }
 

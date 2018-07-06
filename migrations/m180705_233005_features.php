@@ -22,8 +22,8 @@ class m180705_233005_features extends Migration {
             'product_id' => $this->integer()->notNull(),
                 ], 'ENGINE=InnoDB');
         
-        $this->createIndex('idx-feature-product_id', 'feature', 'product_id');
-        $this->addForeignKey('fk-feature-product', 'feature', 'product_id', 'product', 'id');
+        $this->createIndex('idx-feature-product_id', 'mkt_feature', 'product_id');
+        $this->addForeignKey('fk-feature-product', 'mkt_feature', 'product_id', 'mkt_product', 'id');
         
     }
 

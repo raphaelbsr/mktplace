@@ -29,7 +29,7 @@ class m180705_201350_consumer extends Migration {
 //            'company_cnpj' => $this->string(14)
                 ], 'ENGINE=InnoDB');
 
-        $this->createIndex('idx-consumer-cpf', 'consumer', 'cpf');
+        $this->createIndex('idx-consumer-cpf', 'mkt_consumer', 'cpf');
         
     }
 
