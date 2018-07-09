@@ -16,10 +16,10 @@ class m180705_235928_payment_plan extends Migration {
             'create_time' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'update_time' => 'TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
             'discount_percentage' => $this->integer(),
+            'name' => $this->string(45)->notNull(),
             'isactive' => $this->boolean()->defaultValue(true),
             'season' => $this->integer()->defaultValue(1)
-                ], 'ENGINE=InnoDB');
-        
+                ], 'ENGINE=InnoDB');        
     }
 
     /**
