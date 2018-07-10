@@ -20,6 +20,10 @@ use Yii;
  */
 class MktFeature extends \yii\db\ActiveRecord
 {
+    
+    const BOOL = 'BOOL';
+    const INTEGER = 'INTEGER';
+
     /**
      * {@inheritdoc}
      */

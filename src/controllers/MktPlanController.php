@@ -4,9 +4,11 @@ namespace raphaelbsr\mktplace\controllers;
 
 use raphaelbsr\gii\JsonEncoderHelper;
 use raphaelbsr\mktplace\models\MktPlan;
+use raphaelbsr\mktplace\models\MktPlanHasFeature;
 use raphaelbsr\mktplace\models\MktPlanSearch;
 use raphaelbsr\mktplace\models\MktProduct;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -61,12 +63,37 @@ class MktPlanController extends Controller {
         ]);
     }
 
+    public function actionConfigureProductPlans($id) {
+
+        if (Yii::$app->request->post()) {
+            try{
+            if ($planHasFeatures = Yii::$app->request->post('MktPlanHasFeature')) {
+                foreach ($planHasFeatures as $planHasFeature) {
+                    $phf = $planHasFeature['id'] ? MktPlanHasFeature::findOne($planHasFeature['id']) : new MktPlanHasFeature();
+                    $phf->setAttributes($planHasFeature);
+                    $phf->save();
+                }
+            }//end if
+                return JsonEncoderHelper::encode(JsonEncoderHelper::STATUS_SUCCESS, 'The Features/Plans were saved');
+            } catch (\Exception $e){
+                return JsonEncoderHelper::encode(JsonEncoderHelper::STATUS_ERROR, null, null, $e->getMessage() );
+            }
+        } else {
+            $product = MktProduct::findOne($id);
+            $features = $product->getMktFeatures();
+            $plans = $product->mktPlans;
+            $dataProvider = new ActiveDataProvider(['query' => $features]);
+            return $this->render('configure-product-plans', ['dataProvider' => $dataProvider, 'plans' => $plans]);
+        }
+    }
+
     /**
      * Creates a new MktPlan model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate($id) {
+        
         $model = new MktPlan();
 
         try {

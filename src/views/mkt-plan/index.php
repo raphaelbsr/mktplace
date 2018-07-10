@@ -33,6 +33,7 @@ Modal::end();
 
     <p>
         <?= Html::a(Yii::t('app', 'New ' . $product->name . ' Plan'), ['create', 'id' => $product->id], ['class' => 'btn btn-success', 'id' => 'addButton']) ?>
+        <?= Html::a(Yii::t('app', 'Configure ' . $product->name . ' Plans'), ['configure-product-plans', 'id' => $product->id], ['class' => 'btn btn-success', 'id' => 'addButton']) ?>
     </p>
     <?php Pjax::begin(['id' => 'pjaxContainer', 'enablePushState' => false]); ?>    <?=
     GridView::widget([

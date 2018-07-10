@@ -18,14 +18,15 @@ class m180705_233906_plan_has_features extends Migration {
             'plan_id' => $this->integer(),
             'feature_id' => $this->integer(),
             'price' => $this->decimal(11, 2)->notNull()->defaultValue(0),
+            'value' => $this->integer(),
+            'type' => 'ENUM("BOOL","INTEGER")',
                 ], 'ENGINE=InnoDB');
-        
+
         $this->createIndex('idx-phf-plan_id', 'mkt_plan_has_feature', 'plan_id');
         $this->createIndex('idx-phf-feature_id', 'mkt_plan_has_feature', 'feature_id');
-        
+
         $this->addForeignKey('fk-phf-plan', 'mkt_plan_has_feature', 'plan_id', 'mkt_plan', 'id');
         $this->addForeignKey('fk-phf-feature', 'mkt_plan_has_feature', 'feature_id', 'mkt_feature', 'id');
-        
     }
 
     /**
