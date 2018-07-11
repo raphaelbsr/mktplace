@@ -2,10 +2,14 @@
 
 namespace raphaelbsr\mktplace;
 
-use Codeception\Specify\Config;
+use Exception;
+use raphaelbsr\mktplace\interfaces\ConsumerInterface;
+use raphaelbsr\mktplace\models\MktConsumer;
+use raphaelbsr\mktplace\Module;
 use Yii;
 use yii\base\Component;
-use raphaelbsr\mktplace\Module;
+use yii\base\InvalidConfigException;
+use yii\base\Module as Module2;
 
 /**
  * Description of Mktplace
@@ -14,24 +18,24 @@ use raphaelbsr\mktplace\Module;
  */
 class Mktplace extends Component {
 
-    public $moduleId;
-    public $_module;
-
+    public static $moduleId;
+    public $_module;    
+    
     public function init() {
         $this->initModule();
         parent::init();
     }
 
-    public function initModule() {
-        if (!isset($this->moduleId)) {
+    private function initModule() {
+        if (!isset(self::$moduleId)) {
             $this->_module = Module::getInstance();
             if (isset($this->_module)) {
-                $this->moduleId = $this->_module->id;
+                self::$moduleId = $this->_module->id;
                 return;
             }
-            $this->moduleId = Module::MODULE;
+            self::$moduleId = Module::MODULE;
         }
-        $this->_module = self::getModule($this->moduleId, Module::className());
+        $this->_module = self::getModule(self::$moduleId, Module::className());
     }
 
     /**
@@ -43,10 +47,9 @@ class Mktplace extends Component {
      *
      * @throws InvalidConfigException
      *
-     * @return yii\base\Module
+     * @return Module2
      */
-    private static function getModule($m, $class = '')
-    {
+    private static function getModule($m, $class = '') {
         $app = Yii::$app;
         $mod = isset($app->controller) && $app->controller->module ? $app->controller->module : null;
         $module = $mod && $mod->getModule($m) ? $mod->getModule($m) : $app->getModule($m);
@@ -58,16 +61,58 @@ class Mktplace extends Component {
         }
         return $module;
     }
-    
-    public function mktProductCrud() {
-        //return Yii::$app->runAction('@vendor/raphaelbsr/yii2-mktplace/mkt-product-controller');
-        
-//        if (!isset($this->_module->downloadAction)) {
-//            $action = ["/{$this->moduleId}/export/download"];
-//        } else {
-//            $action = (array)$this->_module->downloadAction;
-//        }
-        $action = "/{$this->moduleId}/default";
+
+    public function registerConsumer(ConsumerInterface $consumer) {
+
+        if ($consumer->getMktToken() === "" || $consumer->getMktToken() === null) {
+            throw new Exception("You must return a valid token on getMktToken method");
+        }
+
+        if ($mktConsumer = MktConsumer::find()->where(['token' => $consumer->getMktToken()])->one()) {
+            throw new Exception("Consumer already exists for the token " . $consumer->getMktToken());
+        }
+
+        try {
+            $mktConsumer = new MktConsumer();
+            $mktConsumer->token = $consumer->getMktToken();
+            if ($mktConsumer->save()) {
+                return true;
+            } else {
+                throw new Exception(print_r($mktConsumer->errors));
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function addCreditCard(ConsumerInterface $consumer) {
+
+        if ($consumer->getMktToken() === "" || $consumer->getMktToken() === null) {
+            throw new Exception("You must return a valid token on getMktToken method");
+        }
+
+        if (!$mktConsumer = MktConsumer::find()->where(['token' => $consumer->getMktToken()])->one()) {
+            throw new Exception("Consumer doesn´t exist for the token " . $consumer->getMktToken());
+        }
+
+        return print_r($consumer->getCreditCard());
+    }
+
+    public function getConsumer(ConsumerInterface $consumer) {
+
+        if ($consumer->getMktToken() === "" || $consumer->getMktToken() === null) {
+            throw new Exception("You must return a valid token on getMktToken method");
+        }
+
+        if (!$mktConsumer = MktConsumer::find()->where(['token' => $consumer->getMktToken()])->one()) {
+            throw new Exception("Consumer doesn´t exist for the token " . $consumer->getMktToken());
+        }
+
+        return $mktConsumer;
+    }
+
+    public function loadStoreModule() {        
+        $action = "/".self::$moduleId."/store";
         return Yii::$app->controller->run($action);
     }
 

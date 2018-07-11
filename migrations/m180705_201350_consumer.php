@@ -16,11 +16,12 @@ class m180705_201350_consumer extends Migration {
             'id' => $this->primaryKey(),            
             'create_time' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'update_time' => 'TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
+            'token' => $this->string(64)->notNull()->unique(),
 //            'username' => $this->string(32)->notNull()->unique(),
 //            'useremail' => $this->string(100)->notNull()->unique(),
 //            'password' => $this->string(64)->notNull(),
 //            'password_token' => $this->string(64)->defaultValue(null),
-            'cpf' => $this->string(11)->notNull()->unique(),
+//            'cpf' => $this->string(11)->notNull()->unique(),
 //            'name' => $this->string(45)->notNull(),
 //            'last_name' => $this->string(45)->notNull(),
 //            'phone' => $this->string(10),
@@ -29,7 +30,7 @@ class m180705_201350_consumer extends Migration {
 //            'company_cnpj' => $this->string(14)
                 ], 'ENGINE=InnoDB');
 
-        $this->createIndex('idx-consumer-cpf', 'mkt_consumer', 'cpf');
+//        $this->createIndex('idx-consumer-cpf', 'mkt_consumer', 'cpf');
         
     }
 

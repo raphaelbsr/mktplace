@@ -51,7 +51,6 @@ foreach ($plans as $plan) {
 ?>
 
 <?=
-
 GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => $colums,

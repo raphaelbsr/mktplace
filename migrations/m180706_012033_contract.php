@@ -18,19 +18,16 @@ class m180706_012033_contract extends Migration {
             'update_time' => 'TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
             'product_key' => $this->string(64)->notNull(),
             'consumer_id' => $this->integer()->notNull(),
-            'consumer_cpf' => $this->string(14)->notNull(),
             'product_id' => $this->integer(),
             'payment_plan_id' => $this->integer(),
             'expire_at' => $this->date(),
                 ], 'ENGINE=InnoDB');
 
         $this->createIndex('idx-contract-consumer_id', 'mkt_contract', 'consumer_id');
-        $this->createIndex('idx-contract-consumer_cpf', 'mkt_contract', 'consumer_cpf');
         $this->createIndex('idx-contract-product_id', 'mkt_contract', 'product_id');
         $this->createIndex('idx-contract-payment_plan_id', 'mkt_contract', 'payment_plan_id');
 
         $this->addForeignKey('fk-contract-consumer', 'mkt_contract', 'consumer_id', 'mkt_consumer', 'id');
-        $this->addForeignKey('fk-contract-consumer1', 'mkt_contract', 'consumer_cpf', 'mkt_consumer', 'cpf');
         $this->addForeignKey('fk-contract-product', 'mkt_contract', 'product_id', 'mkt_product', 'id');
         $this->addForeignKey('fk-contract-payment_plan', 'mkt_contract', 'payment_plan_id', 'mkt_payment_plan', 'id');
     }

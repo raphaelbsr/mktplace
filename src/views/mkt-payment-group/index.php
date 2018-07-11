@@ -47,13 +47,21 @@ Modal::end();
                 },
                 'headerOptions' => ['style' => 'width:100px'],
                 'contentOptions' => ['class' => 'text-center'],
-                'filter' => Html::activeDropDownList($searchModel, 'isactive', ['1' => 'ACTIVE', 0 => 'INACTIVE'],['class' => 'form-control', 'prompt' => 'ALL'])
+                'filter' => Html::activeDropDownList($searchModel, 'isactive', ['1' => 'ACTIVE', 0 => 'INACTIVE'], ['class' => 'form-control', 'prompt' => 'ALL'])
             ],
             [
                 'class' => 'raphaelbsr\gii\ActionColumn',
-                'template' => '{update}',
+                'template' => '{update} {configure-payment-plan}',
                 'headerOptions' => ['style' => 'width:100px'],
                 'contentOptions' => ['class' => 'text-center'],
+                'buttons' => [
+                    'configure-payment-plan' => function($url, $model) {
+                        //$moduleId = Mktplace::$moduleId;
+                        //$url = Url::to(["/$moduleId/store/product/details", 'id' => $model->id]);
+                        $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-credit-card"]);
+                        return Html::a($icon, $url, ['class' => 'btn-features', 'data-pjax' => 0, 'title' => 'Configure Payment Plans']);
+                    }
+                ]
             ],
         ],
     ]);

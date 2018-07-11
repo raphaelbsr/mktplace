@@ -17,7 +17,6 @@ class m180706_014059_billing extends Migration {
             'create_time' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'update_time' => 'TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
             'consumer_id' => $this->integer()->notNull(),
-            'consumer_cpf' => $this->string(14)->notNull(),
             'contract_id' => $this->integer(),
             'payment_date' => $this->dateTime()->defaultValue(null),
             'amount' => $this->decimal(11, 2),
@@ -25,11 +24,9 @@ class m180706_014059_billing extends Migration {
                 ], 'ENGINE=InnoDB');
 
         $this->createIndex('idx-billing-consumer_id', 'mkt_billing', 'consumer_id');
-        $this->createIndex('idx-billing-consumer_cpf', 'mkt_billing', 'consumer_cpf');
         $this->createIndex('idx-billing-contract_id', 'mkt_billing', 'contract_id');
 
         $this->addForeignKey('fk-billing-consumer', 'mkt_billing', 'consumer_id', 'mkt_consumer', 'id');
-        $this->addForeignKey('fk-billing-consumer1', 'mkt_billing', 'consumer_cpf', 'mkt_consumer', 'cpf');
         $this->addForeignKey('fk-billing-contract', 'mkt_billing', 'contract_id', 'mkt_contract', 'id');
     }
 

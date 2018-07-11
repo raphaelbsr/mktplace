@@ -15,8 +15,8 @@ use Yii;
  * @property int $season
  * @property string $name
  *
- * @property MktContract[] $mktContracts
- * @property MktPgHasPp[] $mktPgHasPps
+ * @property MktContract[] $mktContracts 
+ * @property MktPaymentGroup $mktPaymentGroup
  */
 class MktPaymentPlan extends \yii\db\ActiveRecord
 {
@@ -41,7 +41,7 @@ class MktPaymentPlan extends \yii\db\ActiveRecord
     {
         return [
             [['create_time', 'update_time'], 'safe'],
-            [['discount_percentage', 'isactive', 'season'], 'integer'],
+            [['discount_percentage', 'isactive', 'season', 'payment_group_id'], 'integer'],
             [['name'], 'string'],
         ];
     }
@@ -73,7 +73,7 @@ class MktPaymentPlan extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMktPgHasPps()
+    public function getMktPaymentGroup()
     {
         return $this->hasMany(MktPgHasPp::className(), ['payment_plan_id' => 'id']);
     }

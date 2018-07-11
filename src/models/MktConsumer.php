@@ -9,8 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string $create_time
- * @property string $update_time
- * @property string $cpf
+ * @property string $update_time 
+ * @property string $token 
  *
  * @property MktBilling[] $mktBillings
  * @property MktBilling[] $mktBillings0
@@ -36,9 +36,9 @@ class MktConsumer extends \yii\db\ActiveRecord
     {
         return [
             [['create_time', 'update_time'], 'safe'],
-            [['cpf'], 'required'],
-            [['cpf'], 'string', 'max' => 11],
-            [['cpf'], 'unique'],
+            [['token'], 'required'],
+            [['token'], 'string', 'max' => 64],
+            [['token'], 'unique'],
         ];
     }
 
@@ -50,8 +50,8 @@ class MktConsumer extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'create_time' => Yii::t('app', 'Create Time'),
-            'update_time' => Yii::t('app', 'Update Time'),
-            'cpf' => Yii::t('app', 'Cpf'),
+            'update_time' => Yii::t('app', 'Update Time'),            
+            'token' => Yii::t('app', 'Token'),
         ];
     }
 
@@ -62,14 +62,7 @@ class MktConsumer extends \yii\db\ActiveRecord
     {
         return $this->hasMany(MktBilling::className(), ['consumer_id' => 'id']);
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMktBillings0()
-    {
-        return $this->hasMany(MktBilling::className(), ['consumer_cpf' => 'cpf']);
-    }
+    
 
     /**
      * @return \yii\db\ActiveQuery
@@ -77,15 +70,7 @@ class MktConsumer extends \yii\db\ActiveRecord
     public function getMktContracts()
     {
         return $this->hasMany(MktContract::className(), ['consumer_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMktContracts0()
-    {
-        return $this->hasMany(MktContract::className(), ['consumer_cpf' => 'cpf']);
-    }
+    }  
 
     /**
      * @return \yii\db\ActiveQuery
@@ -93,13 +78,6 @@ class MktConsumer extends \yii\db\ActiveRecord
     public function getMktCreditCards()
     {
         return $this->hasMany(MktCreditCard::className(), ['consumer_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMktCreditCards0()
-    {
-        return $this->hasMany(MktCreditCard::className(), ['consumer_cpf' => 'cpf']);
-    }
+    }        
+    
 }

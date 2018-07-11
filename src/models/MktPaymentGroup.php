@@ -65,6 +65,14 @@ class MktPaymentGroup extends \yii\db\ActiveRecord
     {
         return $this->hasMany(MktPgHasPp::className(), ['payment_group_id' => 'id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMktPaymentPlans()
+    {
+        return $this->hasMany(MktPaymentPlan::className(), ['id' => 'payment_plan_id'])->viaTable('mkt_pg_has_pp', ['payment_group_id' => 'id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
