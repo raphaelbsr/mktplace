@@ -12,9 +12,9 @@ use Yii;
  * @property string $update_time
  * @property string $name
  * @property int $isactive
- *
- * @property MktPgHasPp[] $mktPgHasPps
+ * 
  * @property MktProduct[] $mktProducts
+ * @property MktPaymentPlan[] $mktPaymentPlans
  */
 class MktPaymentGroup extends \yii\db\ActiveRecord
 {
@@ -71,7 +71,7 @@ class MktPaymentGroup extends \yii\db\ActiveRecord
      */
     public function getMktPaymentPlans()
     {
-        return $this->hasMany(MktPaymentPlan::className(), ['id' => 'payment_plan_id'])->viaTable('mkt_pg_has_pp', ['payment_group_id' => 'id']);
+        return $this->hasMany(MktPaymentPlan::className(), ['payment_group_id' => 'id']);
     }
 
     /**

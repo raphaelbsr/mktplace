@@ -18,8 +18,12 @@ class m180705_235928_payment_plan extends Migration {
             'discount_percentage' => $this->integer(),
             'name' => $this->string(45)->notNull(),
             'isactive' => $this->boolean()->defaultValue(true),
-            'season' => $this->integer()->defaultValue(1)
-                ], 'ENGINE=InnoDB');        
+            'season' => $this->integer()->defaultValue(1),
+            'payment_group_id' => $this->integer(),
+                ], 'ENGINE=InnoDB');
+
+        $this->createIndex('idx-mkt_payment_plan-pgid', 'mkt_payment_plan', 'payment_group_id');
+        $this->addForeignKey('fk-payment_plan-paymento_group', 'mkt_payment_plan', 'payment_group_id', 'mkt_payment_group', 'id', 'CASCADE', 'CASCADE');
     }
 
     /**

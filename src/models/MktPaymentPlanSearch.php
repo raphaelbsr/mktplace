@@ -18,7 +18,7 @@ class MktPaymentPlanSearch extends MktPaymentPlan
     public function rules()
     {
         return [
-            [['id', 'discount_percentage', 'isactive', 'season'], 'integer'],
+            [['id', 'discount_percentage', 'isactive', 'season','payment_group_id'], 'integer'],
             [['create_time', 'update_time'], 'safe'],
         ];
     }
@@ -64,6 +64,7 @@ class MktPaymentPlanSearch extends MktPaymentPlan
             'update_time' => $this->update_time,
             'discount_percentage' => $this->discount_percentage,
             'isactive' => $this->isactive,
+            'payment_group_id' => $this->payment_group_id,
             'season' => $this->season,
         ]);
 

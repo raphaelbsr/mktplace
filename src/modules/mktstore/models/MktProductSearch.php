@@ -1,6 +1,6 @@
 <?php
 
-namespace raphaelbsr\mktplace\modules\store\models;
+namespace raphaelbsr\mktplace\modules\mktstore\models;
 
 use raphaelbsr\mktplace\models\MktProduct;
 use yii\base\Model;

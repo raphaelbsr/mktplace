@@ -15,8 +15,8 @@ class Module extends \yii\base\Module {
         parent::init();
 
         $this->modules = [
-            'store' => [
-                'class' => modules\store\Module::className(),
+            'mktstore' => [
+                'class' => modules\mktstore\Module::className(),
             ],
         ];
     }

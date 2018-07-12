@@ -14,6 +14,7 @@ use Yii;
  * @property int $isactive
  * @property int $season
  * @property string $name
+ * @property int $payment_group_id
  *
  * @property MktContract[] $mktContracts 
  * @property MktPaymentGroup $mktPaymentGroup
@@ -76,5 +77,13 @@ class MktPaymentPlan extends \yii\db\ActiveRecord
     public function getMktPaymentGroup()
     {
         return $this->hasMany(MktPgHasPp::className(), ['payment_plan_id' => 'id']);
+    }
+       
+    public function calcPrice($price){        
+        $finalPrice = 0;
+        if($this->discount_percentage > 0 ){            
+            $finalPrice = ($price * $this->discount_percentage) / 100;            
+        }        
+        return $price - $finalPrice;
     }
 }

@@ -1,16 +1,20 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\widgets\Pjax;
-use yii\bootstrap\Modal;
 use raphaelbsr\frontend\assets\FrontendAsset;
+use raphaelbsr\mktplace\Mktplace;
+use yii\bootstrap\Modal;
+use yii\data\ActiveDataProvider;
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\web\View;
+use yii\widgets\Pjax;
 
 FrontendAsset::register($this);
 
-/* @var $this yii\web\View */
+/* @var $this View */
 /* @var $searchModel app\models\MktPaymentGroupSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $dataProvider ActiveDataProvider */
 
 $this->title = 'New Payment Groups';
 $this->params['breadcrumbs'][] = $this->title;
@@ -51,13 +55,13 @@ Modal::end();
             ],
             [
                 'class' => 'raphaelbsr\gii\ActionColumn',
-                'template' => '{update} {configure-payment-plan}',
+                'template' => '{update} {mkt-payment-plan}',
                 'headerOptions' => ['style' => 'width:100px'],
                 'contentOptions' => ['class' => 'text-center'],
                 'buttons' => [
-                    'configure-payment-plan' => function($url, $model) {
+                    'mkt-payment-plan' => function($url, $model) {
                         //$moduleId = Mktplace::$moduleId;
-                        //$url = Url::to(["/$moduleId/store/product/details", 'id' => $model->id]);
+                        $url = Url::to(["/mktplace/mkt-payment-plan", 'id' => $model->id]);
                         $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-credit-card"]);
                         return Html::a($icon, $url, ['class' => 'btn-features', 'data-pjax' => 0, 'title' => 'Configure Payment Plans']);
                     }

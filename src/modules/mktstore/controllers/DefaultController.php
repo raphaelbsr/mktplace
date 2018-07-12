@@ -1,8 +1,8 @@
 <?php
 
-namespace raphaelbsr\mktplace\modules\store\controllers;
+namespace raphaelbsr\mktplace\modules\mktstore\controllers;
 
-use raphaelbsr\mktplace\modules\store\models\MktProductSearch;
+use raphaelbsr\mktplace\modules\mktstore\models\MktProductSearch;
 use yii\web\Controller;
 
 /**

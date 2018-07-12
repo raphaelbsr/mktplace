@@ -1,6 +1,6 @@
 <?php
 
-namespace raphaelbsr\mktplace\modules\store;
+namespace raphaelbsr\mktplace\modules\mktstore;
 
 /**
  * Description of Module
@@ -9,7 +9,7 @@ namespace raphaelbsr\mktplace\modules\store;
  */
 class Module extends \yii\base\Module{
             
-    public $controllerNamespace = 'raphaelbsr\mktplace\modules\store\controllers';
+    public $controllerNamespace = 'raphaelbsr\mktplace\modules\mktstore\controllers';
     
     public function init() {
         //die('INIT MODULE');

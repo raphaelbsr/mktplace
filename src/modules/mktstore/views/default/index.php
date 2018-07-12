@@ -1,7 +1,7 @@
 <?php
 
 use raphaelbsr\mktplace\Mktplace;
-use raphaelbsr\mktplace\modules\store\models\MktProductSearch;
+use raphaelbsr\mktplace\modules\mktstore\models\MktProductSearch;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -25,8 +25,8 @@ use yii\web\View;
                     'headerOptions' => ['style' => 'width:120px'],
                     'buttons' => [
                         'details' => function($url, MktProductSearch $model) {
-                            $moduleId = Mktplace::$moduleId;
-                            $url = Url::to(["/$moduleId/store/product/details", 'id' => $model->id]);
+                            //$moduleId = Mktplace::$moduleId;
+                            $url = Url::to(["/mktplace/mktstore/product/details", 'id' => $model->id]);
                             $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-eye-open"]);
                             return Html::a($icon, $url, ['class' => 'btn-features', 'data-pjax' => 0, 'title' => 'Details']);
                         }

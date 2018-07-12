@@ -2,24 +2,24 @@
 
 namespace raphaelbsr\mktplace\controllers;
 
-use Yii;
+use raphaelbsr\gii\JsonEncoderHelper;
+use raphaelbsr\mktplace\models\MktPaymentGroup;
 use raphaelbsr\mktplace\models\MktPaymentPlan;
 use raphaelbsr\mktplace\models\MktPaymentPlanSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use raphaelbsr\gii\JsonEncoderHelper;
 
 /**
  * MktPaymentPlanController implements the CRUD actions for MktPaymentPlan model.
  */
-class MktPaymentPlanController extends Controller
-{
+class MktPaymentPlanController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -34,15 +34,21 @@ class MktPaymentPlanController extends Controller
      * Lists all MktPaymentPlan models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $searchModel = new MktPaymentPlanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    public function actionIndex($id) {
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        if ($paymentGroup = MktPaymentGroup::findOne($id)) {
+            $searchModel = new MktPaymentPlanSearch();
+            $searchModel->payment_group_id = $paymentGroup->id;
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('index', [
+                        'searchModel' => $searchModel,
+                        'dataProvider' => $dataProvider,
+                        'paymentGroup' => $paymentGroup
+            ]);
+        } else {
+            throw new NotFoundHttpException();
+        }
     }
 
     /**
@@ -50,10 +56,9 @@ class MktPaymentPlanController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -62,8 +67,7 @@ class MktPaymentPlanController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate($id) {
         $model = new MktPaymentPlan();
 
         try {
@@ -74,6 +78,8 @@ class MktPaymentPlanController extends Controller
                     return JsonEncoderHelper::encodeJsonResponse(JsonEncoderHelper::STATUS_ERROR, JsonEncoderHelper::MESSAGE_ERROR, null, $model->errors);
                 }
             } else {
+                $paymentGroup = MktPaymentGroup::findOne($id);
+                $model->payment_group_id = $paymentGroup->id;
                 return $this->renderAjax('create', [
                             'model' => $model,
                 ]);
@@ -81,7 +87,6 @@ class MktPaymentPlanController extends Controller
         } catch (\Exception $e) {
             return JsonEncoderHelper::encodeJsonResponse(JsonEncoderHelper::STATUS_ERROR, JsonEncoderHelper::MESSAGE_ERROR, null, $e->getMessage());
         }
-               
     }
 
     /**
@@ -90,8 +95,7 @@ class MktPaymentPlanController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         try {
@@ -117,8 +121,7 @@ class MktPaymentPlanController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -131,12 +134,12 @@ class MktPaymentPlanController extends Controller
      * @return MktPaymentPlan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = MktPaymentPlan::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

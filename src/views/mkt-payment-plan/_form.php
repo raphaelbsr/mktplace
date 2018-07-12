@@ -27,6 +27,10 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
         
+    <div class="hidden">
+        <?= $form->field($model, 'payment_group_id')->hiddenInput() ?>
+    </div>
+    
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Save' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

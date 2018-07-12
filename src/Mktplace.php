@@ -21,7 +21,7 @@ class Mktplace extends Component {
     public static $moduleId;
     public $_module;    
     
-    public function init() {
+    public function init() {        
         $this->initModule();
         parent::init();
     }

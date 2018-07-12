@@ -9,7 +9,8 @@ use raphaelbsr\frontend\assets\FrontendAsset;
 FrontendAsset::register($this);
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\MktPaymentPlanSearch */
+/* @var $searchModel \raphaelbsr\mktplace\models\MktPaymentPlanSearch */
+/* @var $searchModel \raphaelbsr\mktplace\models\MktPaymentGroup */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Payment Plans';
@@ -32,7 +33,7 @@ Modal::end();
     <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
     <p>
-        <?= Html::a('New Payment Plan', ['create'], ['class' => 'btn btn-success', 'id' => 'addButton']) ?>
+        <?= Html::a('New '. $paymentGroup->name .' Payment Plan', ['create', 'id' => $paymentGroup->id], ['class' => 'btn btn-success', 'id' => 'addButton']) ?>
     </p>
     <?php Pjax::begin(['id' => 'pjaxContainer', 'enablePushState' => false]); ?>    <?=
     GridView::widget([
