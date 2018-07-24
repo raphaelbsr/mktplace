@@ -1,9 +1,9 @@
 {
-    "name": "raphaelbsr/yii2-i9swmktplace",
+    "name": "raphaelbsr/yii2-mktplace",
     "description": "mktplace",
     "type": "yii2-extension",
-    "keywords": ["yii2","extension","marketplace"],
-    "license": "Apache-2.0",
+    "keywords": ["yii2", "extension", "marketplace"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Rahael Barbosa",
@@ -17,5 +17,8 @@
         "psr-4": {
             "raphaelbsr\\mktplace\\": "src/"
         }
-    }
+    },
+    "ignore": [
+        ".github"
+    ]
 }
