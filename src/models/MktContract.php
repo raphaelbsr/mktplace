@@ -2,6 +2,7 @@
 
 namespace raphaelbsr\mktplace\models;
 
+use Ramsey\Uuid\Uuid;
 use Yii;
 
 /**
@@ -35,6 +36,13 @@ class MktContract extends \yii\db\ActiveRecord
         return 'mkt_contract';
     }
 
+    public function beforeSave($insert) {
+        if($insert){
+            $this->product_key = Uuid::uuid4()->toString();
+        }
+        return parent::beforeSave($insert);
+    }
+    
     /**
      * {@inheritdoc}
      */

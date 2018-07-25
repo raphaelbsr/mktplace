@@ -40,6 +40,7 @@ class ProductController extends Controller {
     }
 
     public function actionPaymentPlans() {
+        
         $contract = new MktContract();
         if ($contract->load(Yii::$app->request->post())) {
 
