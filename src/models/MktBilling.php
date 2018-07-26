@@ -15,6 +15,7 @@ use Yii;
  * @property string $payment_date
  * @property string $amount
  * @property string $due_date
+ * @property string $paymentid
  *
  * @property MktConsumer $consumer 
  * @property MktContract $contract
@@ -35,7 +36,7 @@ class MktBilling extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['create_time', 'update_time', 'payment_date', 'due_date'], 'safe'],            
+            [['create_time', 'update_time', 'payment_date', 'due_date', 'paymentid'], 'safe'],            
             [['consumer_id', 'contract_id'], 'integer'],
             [['amount'], 'number'],            
             [['consumer_id'], 'exist', 'skipOnError' => true, 'targetClass' => MktConsumer::className(), 'targetAttribute' => ['consumer_id' => 'id']],            
@@ -57,6 +58,7 @@ class MktBilling extends \yii\db\ActiveRecord
             'payment_date' => Yii::t('app', 'Payment Date'),
             'amount' => Yii::t('app', 'Amount'),
             'due_date' => Yii::t('app', 'Due Date'),
+            'paymentid' => Yii::t('app', 'Paymentid'),
         ];
     }
 

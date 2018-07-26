@@ -50,7 +50,7 @@ class MktContract extends \yii\db\ActiveRecord
     {
         return [
             [['create_time', 'update_time', 'expire_at'], 'safe'],
-            [['product_key', 'consumer_id'], 'required'],
+            [['consumer_id'], 'required'],
             [['consumer_id', 'product_id', 'payment_plan_id','plan_id'], 'integer'],
             [['product_key'], 'string', 'max' => 64],            
             [['consumer_id'], 'exist', 'skipOnError' => true, 'targetClass' => MktConsumer::className(), 'targetAttribute' => ['consumer_id' => 'id']],            

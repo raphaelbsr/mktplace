@@ -21,6 +21,7 @@ class m180706_014059_billing extends Migration {
             'payment_date' => $this->dateTime()->defaultValue(null),
             'amount' => $this->decimal(11, 2),
             'due_date' => $this->date(),
+            'paymentid' => $this->string(64),
                 ], 'ENGINE=InnoDB');
 
         $this->createIndex('idx-billing-consumer_id', 'mkt_billing', 'consumer_id');
