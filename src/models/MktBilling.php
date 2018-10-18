@@ -62,6 +62,12 @@ class MktBilling extends \yii\db\ActiveRecord
         ];
     }
 
+     public function expiredDays(){
+        $dueDate = DateTime::createFromFormat('Y-m-d', $this->due_date);
+        $interval = $dueDate->diff(new \DateTime());
+        return ( $interval->invert ? $interval->days * -1 : $interval->days ) ;
+    }
+    
     /**
      * @return \yii\db\ActiveQuery
      */

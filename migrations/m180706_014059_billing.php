@@ -22,6 +22,7 @@ class m180706_014059_billing extends Migration {
             'amount' => $this->decimal(11, 2),
             'due_date' => $this->date(),
             'paymentid' => $this->string(64),
+            'status' => "enum('CREATED','SENT','PAID','CANCELED') NOT NULL DEFAULT 'CREATED'",
                 ], 'ENGINE=InnoDB');
 
         $this->createIndex('idx-billing-consumer_id', 'mkt_billing', 'consumer_id');

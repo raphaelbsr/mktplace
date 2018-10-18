@@ -21,6 +21,7 @@ class m180706_012033_contract extends Migration {
             'product_id' => $this->integer(),
             'payment_plan_id' => $this->integer(),
             'expire_at' => $this->date(),
+            'status' => "enum('ACTIVE','CANCELED','BLOCKED') NOT NULL DEFAULT 'ACTIVE'",
                 ], 'ENGINE=InnoDB');
 
         $this->createIndex('idx-contract-consumer_id', 'mkt_contract', 'consumer_id');
